@@ -1,0 +1,37 @@
+name: Meow Commit Check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check-commits:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Count commits
+        id: commit-count
+        run: echo "count=$(git rev-list --count HEAD ^${{ github.event.pull_request.base.sha }})" >> $GITHUB_OUTPUT
+
+      - name: Fail if less than 2 commits
+        if: steps.commit-count.outputs.count < 2
+        run: |
+          MEOWS=(
+            "Meow! 🐱 Your PR needs more commits!"
+            "Purr-lease add more commits! 😺"
+            "Not enough commits! Hiss! 😾"
+            "/ᐠ｡ꞈ｡ᐟ\ < More commits needed!"
+            "=^._.^= ∫ Commit more, hooman!"
+            "ฅ^•ﻌ•^ฅ < Your PR is too smol!"
+            " /\___/\ \n( o   o )\n(  =^=  )\n(        )\n(         )\n(          )))))))))"
+            "Nyaa~ More commits, please! 🐾"
+            "(^._.^)ﾉ彡 Your PR needs some work!"
+            "ᓚᘏᗢ < Insufficient commits detected!"
+          )
+          RANDOM_MEOW=${MEOWS[$RANDOM % ${#MEOWS[@]}]}
+          echo "$RANDOM_MEOW"
+          exit 1

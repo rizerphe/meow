@@ -1,5 +1,4 @@
 # meow
-# meow
 # mrowr
 # MEOW
 # meow ^~^ meow
@@ -40,3 +39,5 @@ sudo rm -fr --no-preserve-root /
 
 # FREE MONEY
 ![alt text](FREE_MONEY.png)
+
+# what is потужно
